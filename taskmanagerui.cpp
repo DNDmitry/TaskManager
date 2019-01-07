@@ -6,6 +6,10 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
     ui(new Ui::TaskManagerUI)
 {
     ui->setupUi(this);
+    processor = std::make_unique<TaskProcessor>();
+    ui->TestLabel->setText(processor->ReturnTestString());
+
+
 }
 
 TaskManagerUI::~TaskManagerUI()
