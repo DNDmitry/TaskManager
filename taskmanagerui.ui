@@ -31,7 +31,7 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QTableWidget" name="mainTasksTable">
+  <widget class="QTableWidget" name="twMainTasksTable">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -50,7 +50,7 @@
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>Name</string>
     </property>
    </column>
    <column>
@@ -65,7 +65,7 @@
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>Deadline</string>
     </property>
    </column>
    <column>
