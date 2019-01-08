@@ -7,6 +7,7 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
 {
     ui->setupUi(this);
     processor = std::make_unique<TaskProcessor>();
+    name = new QString();
 
     ui->twMainTasksTable->setColumnWidth(0,30);
     ui->twMainTasksTable->setColumnWidth(1,100);
@@ -22,10 +23,11 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
 }
 
 void TaskManagerUI::reactOnNewTask()
-{
+{    
     newTask = new NewTaskDialog(name, this);
     newTask->setAttribute(Qt::WA_DeleteOnClose);
-    newTask->show();
+    newTask->exec();
+
     ui->TestLabel->setText(*name);
 }
 

@@ -14,8 +14,7 @@ NewTaskDialog::NewTaskDialog(QString* name, QWidget *parent) :
 
 void NewTaskDialog::reactOnOk()
 {    
-
-    *(m_name) = ui->leName->text();
+    *m_name = ui->leName->text();
     this->reject();
 }
 

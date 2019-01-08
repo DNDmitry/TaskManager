@@ -40,3 +40,10 @@ else:unix: LIBS += -L$$PWD/../../bin/TaskDBConnector/ -lTaskDBConnector
 
 INCLUDEPATH += $$PWD/../../bin/TaskDBConnector/debug
 DEPENDPATH += $$PWD/../../bin/TaskDBConnector/debug
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../bin/TaskDBConnector/release/ -lTaskDBConnector
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../bin/TaskDBConnector/debug/ -lTaskDBConnector
+else:unix: LIBS += -L$$PWD/../../bin/TaskDBConnector/ -lTaskDBConnector
+
+INCLUDEPATH += $$PWD/../../bin/TaskDBConnector/debug
+DEPENDPATH += $$PWD/../../bin/TaskDBConnector/debug
