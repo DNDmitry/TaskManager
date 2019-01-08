@@ -26,13 +26,16 @@ CONFIG += c++11 c++14
 
 SOURCES += \
         main.cpp \
-        taskmanagerui.cpp
+        taskmanagerui.cpp \
+    newtaskdialog.cpp
 
 HEADERS += \
-        taskmanagerui.h
+        taskmanagerui.h \
+    newtaskdialog.h
 
 FORMS += \
-        taskmanagerui.ui
+        taskmanagerui.ui \
+    newtaskdialog.ui
 
 
 
