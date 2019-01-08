@@ -5,6 +5,8 @@
 #include <QWidget>
 #include "taskprocessor.h"
 #include <memory>
+#include <QTableWidgetItem>
+#include <QDebug>
 
 namespace Ui {
 class TaskManagerUI;
@@ -29,6 +31,7 @@ private:
 
 
     void reactOnNewTask();
+    void fillTable();
 
 };
 
