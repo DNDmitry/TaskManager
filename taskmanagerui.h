@@ -3,7 +3,7 @@
 
 #include "newtaskdialog.h"
 #include <QWidget>
-#include <TaskProcessor/taskprocessor.h> // DLLs .h files may be included like this
+#include <taskprocessor.h>
 #include <memory>
 
 namespace Ui {

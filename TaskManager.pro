@@ -38,14 +38,6 @@ FORMS += \
     newtaskdialog.ui
 
 
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../bin/TaskProcessor/debug/release/ -lTaskProcessor
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../bin/TaskProcessor/debug/debug/ -lTaskProcessor
-else:unix: LIBS += -L$$PWD/../bin/TaskProcessor/debug/ -lTaskProcessor
-
-INCLUDEPATH += $$PWD/../bin/TaskProcessor/debug/debug
-DEPENDPATH += $$PWD/../bin/TaskProcessor/debug/debug
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../bin/TaskProcessor/release/ -lTaskProcessor
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../bin/TaskProcessor/debug/ -lTaskProcessor
 else:unix: LIBS += -L$$PWD/../bin/TaskProcessor/ -lTaskProcessor

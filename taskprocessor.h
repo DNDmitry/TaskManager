@@ -1,6 +1,7 @@
 #ifndef TASKPROCESSOR_H
 #define TASKPROCESSOR_H
 
+
 #include "taskprocessor_global.h"
 #include <QString>
 
