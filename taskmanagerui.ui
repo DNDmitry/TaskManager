@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>825</width>
+    <height>581</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QLabel" name="TestLabel">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>90</y>
-     <width>221</width>
-     <height>91</height>
+     <x>320</x>
+     <y>530</y>
+     <width>141</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -29,6 +29,98 @@
    </property>
    <property name="text">
     <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="mainTasksTable">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>116</y>
+     <width>761</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="columnCount">
+    <number>6</number>
+   </property>
+   <column>
+    <property name="text">
+     <string>#</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>New Column</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Description</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Prior</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>New Column</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Done</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="pbNew">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>60</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Add new task</string>
+   </property>
+  </widget>
+  <widget class="QDateTimeEdit" name="dtStart">
+   <property name="geometry">
+    <rect>
+     <x>563</x>
+     <y>56</y>
+     <width>231</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="displayFormat">
+    <string>MM/dd/yyyy hh:mm</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lStartDate">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>30</y>
+     <width>55</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>From:</string>
    </property>
   </widget>
  </widget>

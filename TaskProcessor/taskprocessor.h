@@ -10,7 +10,8 @@ class TASKPROCESSORSHARED_EXPORT TaskProcessor
 public:
     TaskProcessor();
 
-    QString ReturnTestString();
+    QString ReturnTestString();    
+
 };
 
 #endif // TASKPROCESSOR_H
