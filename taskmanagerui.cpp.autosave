@@ -23,7 +23,7 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
 
 void TaskManagerUI::reactOnNewTask()
 {
-    newTask = new NewTaskDialog(name, this);
+    newTask = new NewTaskDialog(this);
     newTask->setAttribute(Qt::WA_DeleteOnClose);
     newTask->show();
     ui->TestLabel->setText(*name);
