@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>423</width>
+    <width>444</width>
     <height>279</height>
    </rect>
   </property>
@@ -23,10 +23,10 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QLabel" name="lDescription">
-      <property name="text">
-       <string>Descriptio</string>
+    <item row="3" column="1">
+     <widget class="QDateTimeEdit" name="dtDeadLine">
+      <property name="displayFormat">
+       <string>MM/dd/yyyy hh:mm</string>
       </property>
      </widget>
     </item>
@@ -37,12 +37,8 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="lPriority">
-      <property name="text">
-       <string>Priority</string>
-      </property>
-     </widget>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="leName"/>
     </item>
     <item row="3" column="0">
      <widget class="QLabel" name="lDeadLine">
@@ -51,14 +47,12 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="leName"/>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="leDescription"/>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="leDeadLine"/>
+    <item row="2" column="0">
+     <widget class="QLabel" name="lPriority">
+      <property name="text">
+       <string>Priority</string>
+      </property>
+     </widget>
     </item>
     <item row="2" column="1">
      <widget class="QComboBox" name="cbPriotiry">
@@ -82,6 +76,16 @@
         <string>Fatal</string>
        </property>
       </item>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="leDescription"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="lDescription">
+      <property name="text">
+       <string>Descriptio</string>
+      </property>
      </widget>
     </item>
    </layout>
