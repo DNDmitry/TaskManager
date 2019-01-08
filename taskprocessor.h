@@ -11,7 +11,7 @@ class TASKPROCESSORSHARED_EXPORT TaskProcessor
 public:
     TaskProcessor();
 
-    QString ReturnTestString();    
+    void createTask();
 
 };
 

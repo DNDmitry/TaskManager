@@ -5,8 +5,7 @@ TaskProcessor::TaskProcessor()
 {
 }
 
-QString TaskProcessor::ReturnTestString()
+void TaskProcessor::createTask()
 {
-    QString test = "DLL works!";
-    return test;
+
 }
