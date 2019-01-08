@@ -24,7 +24,9 @@ private:
     TaskStructure* m_task;
 
 
+    QString checkDeadLineTime(const QDate &date, const QTime &time);
     void reactOnOk();
+    void reactOnCancel();
 };
 
 #endif // NEWTASKDIALOG_H

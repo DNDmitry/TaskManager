@@ -3,7 +3,7 @@
 # Project created by QtCreator 2019-01-08T00:02:39
 #
 #-------------------------------------------------
-
+QT += sql
 QT       -= gui
 
 TARGET = TaskProcessor

@@ -16,11 +16,17 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
     ui->twMainTasksTable->setColumnWidth(4,110);
     ui->twMainTasksTable->setColumnWidth(5,50);
 
-
-
-
-
+    
     connect(ui->pbNew, &QPushButton::clicked, this, &TaskManagerUI::reactOnNewTask);
+}
+
+void TaskManagerUI::fillTable()
+{
+    QList<TaskStructure> tasks = processor->getAll();
+    for(TaskStructure task : tasks)
+    {
+        
+    }
 }
 
 void TaskManagerUI::reactOnNewTask()

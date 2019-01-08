@@ -10,7 +10,7 @@ public:
     TaskStructure() = default;
     ~TaskStructure() = default;
 
-    QString id;
+    int id;
     QString name;
     QString description;
     QString deadLine;
