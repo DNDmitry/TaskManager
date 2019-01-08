@@ -2,6 +2,7 @@
 #define NEWTASKDIALOG_H
 
 #include "taskstructure.h"
+#include "taskprocessor.h"
 #include <QDialog>
 #include <QPushButton>
 
@@ -14,7 +15,7 @@ class NewTaskDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit NewTaskDialog(TaskStructure* task, QWidget *parent = nullptr);
+    explicit NewTaskDialog(TaskProcessor* processor, TaskStructure* task, QWidget *parent = nullptr);
     virtual ~NewTaskDialog();
 
 
@@ -22,6 +23,7 @@ public:
 private:
     Ui::NewTaskDialog *ui;
     TaskStructure* m_task;
+    TaskProcessor* m_processor;
 
 
     QString checkDeadLineTime(const QDate &date, const QTime &time);

@@ -1,13 +1,14 @@
 #include "newtaskdialog.h"
 #include "ui_newtaskdialog.h"
 
-NewTaskDialog::NewTaskDialog(TaskStructure* task, QWidget *parent) :
+NewTaskDialog::NewTaskDialog(TaskProcessor* processor, TaskStructure* task, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewTaskDialog)
 {
     ui->setupUi(this);
 
     m_task = task;
+    m_processor = processor;
 
     connect(ui->pbOk, &QPushButton::clicked, this, &NewTaskDialog::reactOnOk);
     connect(ui->pbCancel, &QPushButton::clicked, this, &NewTaskDialog::reactOnCancel);
@@ -19,7 +20,7 @@ void NewTaskDialog::reactOnOk()
     m_task->description = ui->leDescription->text();
     m_task->deadLine = checkDeadLineTime(ui->dtDeadLine->date(), ui->dtDeadLine->time());
     m_task->priority = ui->cbPriotiry->currentText();
-
+    m_processor->createTask(m_task);
     this->reject();
 }
 

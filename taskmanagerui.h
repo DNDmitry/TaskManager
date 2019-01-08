@@ -27,11 +27,12 @@ public:
 private:
     Ui::TaskManagerUI *ui;
 
-    std::unique_ptr<TaskProcessor> processor;
+    TaskProcessor *processor;
 
 
     void reactOnNewTask();
     void fillTable();
+    void clearTable();
 
 };
 
