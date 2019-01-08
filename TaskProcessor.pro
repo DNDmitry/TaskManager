@@ -37,9 +37,9 @@ unix {
     INSTALLS += target
 }
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../bin/TaskDBConnector/release/ -lTaskDBConnector
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../bin/TaskDBConnector/debug/ -lTaskDBConnector
-else:unix: LIBS += -L$$PWD/../bin/TaskDBConnector/ -lTaskDBConnector
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../bin/debug/release/ -lTaskDBConnector
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../bin/debug/debug/ -lTaskDBConnector
+else:unix: LIBS += -L$$PWD/../bin/debug/ -lTaskDBConnector
 
-INCLUDEPATH += $$PWD/../bin/TaskDBConnector/debug
-DEPENDPATH += $$PWD/../bin/TaskDBConnector/debug
+INCLUDEPATH += $$PWD/../bin/debug/debug
+DEPENDPATH += $$PWD/../bin/debug/debug
