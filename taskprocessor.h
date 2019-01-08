@@ -16,7 +16,7 @@ public:
 
     void createTask(TaskStructure* task);
     void updateTask(TaskStructure* task);
-    QList<TaskStructure> getAll();
+    QList<TaskStructure*> getAll();
 
 private:
     std::unique_ptr<TaskDBConnector> connector;

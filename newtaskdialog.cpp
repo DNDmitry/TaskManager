@@ -10,6 +10,8 @@ NewTaskDialog::NewTaskDialog(TaskProcessor* processor, TaskStructure* task, QWid
     m_task = task;
     m_processor = processor;
 
+    ui->dtDeadLine->setDateTime(QDateTime::currentDateTime());
+
     connect(ui->pbOk, &QPushButton::clicked, this, &NewTaskDialog::reactOnOk);
     connect(ui->pbCancel, &QPushButton::clicked, this, &NewTaskDialog::reactOnCancel);
 }

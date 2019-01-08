@@ -43,13 +43,12 @@ void TaskDBConnector::insert(const QString &szName, const QString &szDescription
             + szPrior + "', '"
             + szDeadLineTime + "', '"
             + done + "')";
-    qDebug() << queryString;
     q->exec(queryString);
 }
 
-void TaskDBConnector::update(const int &szRecordId, const QString &szDone)
+void TaskDBConnector::update(const QString &szRecordId, const QString &szDone)
 {
-    q->exec("UPDATE Tasks SET Done = '" + szDone + "' WHERE ID = " + QString::number(szRecordId) + ";");
+    q->exec("UPDATE Tasks SET Done = '" + szDone + "' WHERE ID = " + szRecordId + ";");
 }
 
 void TaskDBConnector::deleteRow(const QString &szRecordId)

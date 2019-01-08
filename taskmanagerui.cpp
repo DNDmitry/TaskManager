@@ -22,6 +22,17 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
 
 
     connect(ui->pbNew, &QPushButton::clicked, this, &TaskManagerUI::reactOnNewTask);
+    connect(ui->twMainTasksTable, &QTableWidget::cellChanged, this, &TaskManagerUI::finishTask);
+}
+
+void TaskManagerUI::finishTask(int row, int col)
+{
+    if(ui->twMainTasksTable->item(row,col)->checkState() == Qt::Checked)
+    {
+        task->id = ui->twMainTasksTable->item(row,0)->text();
+        task->done = true;
+        processor->updateTask(task);
+    }
 }
 
 void TaskManagerUI::clearTable()
@@ -29,33 +40,31 @@ void TaskManagerUI::clearTable()
     ui->twMainTasksTable->setRowCount(0);
 }
 
-
 void TaskManagerUI::fillTable()
 {
     clearTable();
-    QList<TaskStructure> tasks = processor->getAll();
+    QList<TaskStructure*> tasks = processor->getAll();
     ui->twMainTasksTable->insertRow(0);
     for(auto it = tasks.begin(); it < tasks.end(); it++)
     {
-
-        QTableWidgetItem *id = new QTableWidgetItem(it->id);
+        QTableWidgetItem *id = new QTableWidgetItem((*it)->id);
         ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,0,id);
         id->setFlags(id->flags() & ~Qt::ItemIsEditable);
-        QTableWidgetItem *name = new QTableWidgetItem(it->name);
+        QTableWidgetItem *name = new QTableWidgetItem((*it)->name);
         ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,1,name);
         name->setFlags(name->flags() & ~Qt::ItemIsEditable);
-        QTableWidgetItem *description = new QTableWidgetItem(it->description);
+        QTableWidgetItem *description = new QTableWidgetItem((*it)->description);
         ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,2,description);
         description->setFlags(description->flags() & ~Qt::ItemIsEditable);
-        QTableWidgetItem *deadline = new QTableWidgetItem(it->deadLine);
+        QTableWidgetItem *deadline = new QTableWidgetItem((*it)->deadLine);
         ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,3,deadline);
         deadline->setFlags(deadline->flags() & ~Qt::ItemIsEditable);
-        QTableWidgetItem *priority = new QTableWidgetItem(it->priority);
+        QTableWidgetItem *priority = new QTableWidgetItem((*it)->priority);
         ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,4,priority);
         priority->setFlags(priority->flags() & ~Qt::ItemIsEditable);
-        QTableWidgetItem *done = new QTableWidgetItem(it->done);
+        QTableWidgetItem *done = new QTableWidgetItem((*it)->done);
 
-        if(it->done)
+        if((*it)->done)
             done->setCheckState(Qt::Checked);
         else
             done->setCheckState(Qt::Unchecked);

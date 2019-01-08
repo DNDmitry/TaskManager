@@ -7,6 +7,7 @@
 #include <memory>
 #include <QTableWidgetItem>
 #include <QDebug>
+#include <string>
 
 namespace Ui {
 class TaskManagerUI;
@@ -33,6 +34,7 @@ private:
     void reactOnNewTask();
     void fillTable();
     void clearTable();
+    void finishTask(int row, int col);
 
 };
 
