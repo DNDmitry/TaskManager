@@ -3,7 +3,7 @@
 
 #include "newtaskdialog.h"
 #include <QWidget>
-#include <taskprocessor.h>
+#include "taskprocessor.h"
 #include <memory>
 
 namespace Ui {
@@ -20,12 +20,13 @@ public:
 
 
     NewTaskDialog* newTask;
+    TaskStructure *task;
 
 private:
     Ui::TaskManagerUI *ui;
 
     std::unique_ptr<TaskProcessor> processor;
-    QString *name;
+
 
     void reactOnNewTask();
 

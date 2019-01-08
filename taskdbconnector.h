@@ -18,7 +18,7 @@ public:
     std::shared_ptr<QSqlQuery> q;
     TaskDBConnector();
     std::shared_ptr<QSqlQuery> readAll();
-    void insert(const QString &szName, const QString &szDescription, const QString &szPrior, const QString &szEndTime, const QString &szDone);
+    void insert(const QString &szName, const QString &szDescription, const QString &szPrior, const QString &szDeadLineTime, const bool &szDone);
     void update(const QString &szRecordId, const QString &szDone);
     void deleteRow(const QString &szRecordId);
     void disconnect();

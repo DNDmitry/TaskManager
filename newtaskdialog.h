@@ -1,7 +1,7 @@
 #ifndef NEWTASKDIALOG_H
 #define NEWTASKDIALOG_H
 
-
+#include "taskstructure.h"
 #include <QDialog>
 #include <QPushButton>
 
@@ -14,14 +14,14 @@ class NewTaskDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit NewTaskDialog(QString* name, QWidget *parent = nullptr);
+    explicit NewTaskDialog(TaskStructure* task, QWidget *parent = nullptr);
     virtual ~NewTaskDialog();
 
 
 
 private:
     Ui::NewTaskDialog *ui;
-    QString* m_name;
+    TaskStructure* m_task;
 
 
     void reactOnOk();

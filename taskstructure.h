@@ -7,14 +7,14 @@
 class TaskStructure
 {
 public:
-    TaskStructure();
-    ~TaskStructure();
+    TaskStructure() = default;
+    ~TaskStructure() = default;
 
-    QString Id;
+    QString id;
     QString name;
     QString description;
-    QDateTime deadLine;
-    QString Priority;
+    QString deadLine;
+    QString priority;
     bool done;
 };
 

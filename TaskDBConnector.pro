@@ -37,10 +37,3 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../bin/TaskProcessor/release/ -lTaskProcessor
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../bin/TaskProcessor/debug/ -lTaskProcessor
-else:unix: LIBS += -L$$PWD/../bin/TaskProcessor/ -lTaskProcessor
-
-INCLUDEPATH += $$PWD/../bin/TaskProcessor/debug
-DEPENDPATH += $$PWD/../bin/TaskProcessor/debug
