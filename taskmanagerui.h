@@ -22,6 +22,8 @@ private:
 
     std::unique_ptr<TaskProcessor> processor;
 
+    void reactOnNewTask();
+
 };
 
 #endif // TASKMANAGERUI_H

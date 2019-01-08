@@ -14,8 +14,16 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
     ui->twMainTasksTable->setColumnWidth(3,110);
     ui->twMainTasksTable->setColumnWidth(4,110);
     ui->twMainTasksTable->setColumnWidth(5,50);
+
+
     ui->TestLabel->setText(processor->ReturnTestString());
 
+    connect(ui->pbNew, &QPushButton::clicked, this, &TaskManagerUI::reactOnNewTask);
+}
+
+void TaskManagerUI::reactOnNewTask()
+{
+    ui->TestLabel->setText("New Task button clicked");
 }
 
 TaskManagerUI::~TaskManagerUI()
