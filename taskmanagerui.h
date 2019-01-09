@@ -13,6 +13,8 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 #include <QMenu>
+#include <QVector>
+#include <map>
 
 namespace Ui {
 class TaskManagerUI;
@@ -41,6 +43,8 @@ private:
     void fillTable();
     void clearTable();
     void finishTask(int row, int col);
+    void getUrgentTasks(QList<TaskStructure> &urgentTasks, QVector<int> &rowNumbers);
+    void getNotSoUrgentTasks(QList<TaskStructure> &urgentTasks, QVector<int> &rowNumbers);
 
 protected:
     void closeEvent(QCloseEvent * event);

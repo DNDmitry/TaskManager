@@ -49,7 +49,10 @@ void TaskDBConnector::insert(const QString &szName, const QString &szDescription
 
 void TaskDBConnector::update(const QString &szRecordId, const QString &szDone)
 {
-    q->exec("UPDATE Tasks SET Done = '" + szDone + "' WHERE ID = " + szRecordId + ";");
+    qDebug() << "szRecordId => " + szRecordId;
+    qDebug() << "szDone => " + szDone;
+    q->exec("UPDATE Tasks SET Done = '" + szDone + "' WHERE Name = '" + szRecordId + "';");
+    qDebug() << q->lastError();
 }
 
 void TaskDBConnector::deleteRow(const QString &szRecordId)

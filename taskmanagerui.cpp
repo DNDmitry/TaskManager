@@ -9,7 +9,6 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
     this->setWindowTitle("Task Manager 3C");
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setIcon(this->style()->standardIcon(QStyle::SP_ComputerIcon));
-    trayIcon->setToolTip("Task Manager 3C");
     QMenu * menu = new QMenu(this);
     QAction * viewWindow = new QAction("Expand", this);
     QAction * quitAction = new QAction("Exit", this);
@@ -31,17 +30,15 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
     task = new TaskStructure();
     popUp = new PopUp();
 
-    ui->twMainTasksTable->setColumnWidth(0,30);
-    ui->twMainTasksTable->setColumnWidth(1,100);
-    ui->twMainTasksTable->setColumnWidth(2,340);
-    ui->twMainTasksTable->setColumnWidth(3,110);
-    ui->twMainTasksTable->setColumnWidth(4,110);
-    ui->twMainTasksTable->setColumnWidth(5,50);
+    ui->twMainTasksTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->twMainTasksTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->twMainTasksTable->setColumnWidth(0,150);
+    ui->twMainTasksTable->setColumnWidth(1,300);
+    ui->twMainTasksTable->setColumnWidth(2,100);
+    ui->twMainTasksTable->setColumnWidth(3,220);
+    ui->twMainTasksTable->setColumnWidth(4,100);
 
     fillTable();
-
-    ui->dtStart->setDateTime(QDateTime::currentDateTime());
-
 
     connect(ui->pbNew, &QPushButton::clicked, this, &TaskManagerUI::reactOnNewTask);
     connect(ui->twMainTasksTable, &QTableWidget::cellChanged, this, &TaskManagerUI::finishTask);
@@ -50,10 +47,45 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
 
 void TaskManagerUI::checkDeadLines()
 {
-    QString epoh = QString::number(QDateTime::currentSecsSinceEpoch());
-    popUp->setPopupText(epoh);
-    ui->TestLabel->setText(epoh);
-    popUp->show();
+    QString message = "Believe in yourself! Have faith in your abilities! Just do these tasks: ";
+    QList<TaskStructure> urgentTasks;
+    QVector<int> rowNumbers;
+    getUrgentTasks(urgentTasks, rowNumbers);
+    if(!urgentTasks.isEmpty())
+    {
+        for(int i : rowNumbers)
+        {
+            for(int j = 0; j < ui->twMainTasksTable->columnCount(); j++)
+            {
+                ui->twMainTasksTable->item(i,j)->setBackgroundColor(Qt::red);
+                if(j == 0)
+                {
+                    message += ui->twMainTasksTable->item(i,j)->text() + " ";
+                }
+            }
+
+        }
+        popUp->setPopupText(message);
+        popUp->show();
+    }
+}
+
+void TaskManagerUI::getUrgentTasks(QList<TaskStructure> &urgentTasks, QVector<int> &rowNumbers)
+{
+    for(int i = 0; i < ui->twMainTasksTable->rowCount(); i++)
+    {
+        QDateTime deadline = QDateTime::fromString(ui->twMainTasksTable->item(i,3)->text());
+        QDateTime current = QDateTime::currentDateTime();
+        qDebug() << current.secsTo(deadline);
+
+        if(ui->twMainTasksTable->item(i, 4)->checkState() == Qt::Unchecked && current.secsTo(deadline) <= 1800 && ui->twMainTasksTable->item(i,4)->backgroundColor() != Qt::red)
+        {
+            TaskStructure task;
+            task.name = ui->twMainTasksTable->item(i, 0)->text();
+            urgentTasks.push_back(task);
+            rowNumbers.push_back(i);
+        }
+    }
 }
 
 void TaskManagerUI::finishTask(int row, int col)
@@ -61,8 +93,9 @@ void TaskManagerUI::finishTask(int row, int col)
     if(ui->twMainTasksTable->item(row,col)->checkState() == Qt::Checked)
     {
         ui->twMainTasksTable->blockSignals(true);
-        task->id = ui->twMainTasksTable->item(row,0)->text();
+        task->name = ui->twMainTasksTable->item(row,0)->text();
         task->done = true;
+        qDebug() << "task->name => " + task->name;
         processor->updateTask(task);
         fillTable();
     }
@@ -81,28 +114,28 @@ void TaskManagerUI::fillTable()
     ui->twMainTasksTable->insertRow(0);
     for(auto it = tasks.begin(); it < tasks.end(); it++)
     {
-        QTableWidgetItem *id = new QTableWidgetItem((*it)->id);
-        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,0,id);
-        id->setFlags(id->flags() & ~Qt::ItemIsEditable);
         QTableWidgetItem *name = new QTableWidgetItem((*it)->name);
-        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,1,name);
+        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,0,name);
         name->setFlags(name->flags() & ~Qt::ItemIsEditable);
         QTableWidgetItem *description = new QTableWidgetItem((*it)->description);
-        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,2,description);
+        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,1,description);
         description->setFlags(description->flags() & ~Qt::ItemIsEditable);
+        QTableWidgetItem *priority = new QTableWidgetItem((*it)->priority);
+        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,2,priority);
+        priority->setFlags(priority->flags() & ~Qt::ItemIsEditable);
+        priority->setTextAlignment(Qt::AlignHCenter);
         QTableWidgetItem *deadline = new QTableWidgetItem((*it)->deadLine);
         ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,3,deadline);
         deadline->setFlags(deadline->flags() & ~Qt::ItemIsEditable);
-        QTableWidgetItem *priority = new QTableWidgetItem((*it)->priority);
-        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,4,priority);
-        priority->setFlags(priority->flags() & ~Qt::ItemIsEditable);
+        deadline->setTextAlignment(Qt::AlignHCenter);
+
         QTableWidgetItem *done = new QTableWidgetItem((*it)->done);
 
         if((*it)->done)
             done->setCheckState(Qt::Checked);
         else
             done->setCheckState(Qt::Unchecked);
-        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,5,done);
+        ui->twMainTasksTable->setItem(ui->twMainTasksTable->rowCount()- 1,4,done);
 
         if(it != --tasks.end())
             ui->twMainTasksTable->insertRow(ui->twMainTasksTable->rowCount());
@@ -110,7 +143,7 @@ void TaskManagerUI::fillTable()
 }
 
 void TaskManagerUI::reactOnNewTask()
-{    
+{
     newTask = new NewTaskDialog(processor, task, this);
     newTask->setAttribute(Qt::WA_DeleteOnClose);
     newTask->exec();
