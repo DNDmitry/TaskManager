@@ -4,6 +4,15 @@
 TaskProcessor::TaskProcessor()
 {
     connector = std::make_unique<TaskDBConnector>();
+
+    timer = std::make_unique<QTimer>(this);
+    connect(timer.get(), &QTimer::timeout, this, &TaskProcessor::isDeadlinesCheckingNeeded);
+    timer->start(5000); //provides a change QTime readings over time (second)
+}
+
+void TaskProcessor::isDeadlinesCheckingNeeded()
+{
+    emit haveToCheckDeadlines();
 }
 
 void TaskProcessor::createTask(TaskStructure* task)

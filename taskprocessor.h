@@ -6,10 +6,12 @@
 #include "taskprocessor_global.h"
 #include <QString>
 #include <QList>
+#include <QTimer>
 
 
-class TASKPROCESSORSHARED_EXPORT TaskProcessor
+class TASKPROCESSORSHARED_EXPORT TaskProcessor : public QObject
 {
+    Q_OBJECT
 
 public:
     TaskProcessor();
@@ -17,6 +19,9 @@ public:
     void createTask(TaskStructure* task);
     void updateTask(TaskStructure* task);
     QList<TaskStructure*> getAll();
+
+signals:
+    void haveToCheckDeadlines();
 
 private:
     std::unique_ptr<TaskDBConnector> connector;
@@ -27,6 +32,8 @@ private:
         {2,"High"},
         {3,"Fatal"}
 };
+    std::unique_ptr<QTimer> timer;
+    void isDeadlinesCheckingNeeded();
 
 };
 

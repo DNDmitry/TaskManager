@@ -6,8 +6,30 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
     ui(new Ui::TaskManagerUI)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Task Manager 3C");
+    trayIcon = new QSystemTrayIcon(this);
+    trayIcon->setIcon(this->style()->standardIcon(QStyle::SP_ComputerIcon));
+    trayIcon->setToolTip("Task Manager 3C");
+    QMenu * menu = new QMenu(this);
+    QAction * viewWindow = new QAction("Expand", this);
+    QAction * quitAction = new QAction("Exit", this);
+
+    connect(viewWindow, SIGNAL(triggered()), this, SLOT(show()));
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+
+    menu->addAction(viewWindow);
+    menu->addAction(quitAction);
+
+    trayIcon->setContextMenu(menu);
+    trayIcon->show();
+
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+
+
     processor = new TaskProcessor();
     task = new TaskStructure();
+    popUp = new PopUp();
 
     ui->twMainTasksTable->setColumnWidth(0,30);
     ui->twMainTasksTable->setColumnWidth(1,100);
@@ -23,6 +45,15 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
 
     connect(ui->pbNew, &QPushButton::clicked, this, &TaskManagerUI::reactOnNewTask);
     connect(ui->twMainTasksTable, &QTableWidget::cellChanged, this, &TaskManagerUI::finishTask);
+    connect(processor, SIGNAL(haveToCheckDeadlines()), this, SLOT(checkDeadLines()));
+}
+
+void TaskManagerUI::checkDeadLines()
+{
+    QString epoh = QString::number(QDateTime::currentSecsSinceEpoch());
+    popUp->setPopupText(epoh);
+    ui->TestLabel->setText(epoh);
+    popUp->show();
 }
 
 void TaskManagerUI::finishTask(int row, int col)
@@ -84,6 +115,35 @@ void TaskManagerUI::reactOnNewTask()
     newTask->setAttribute(Qt::WA_DeleteOnClose);
     newTask->exec();
     fillTable();
+}
+
+void TaskManagerUI::closeEvent(QCloseEvent * event)
+{
+    if(this->isVisible()){
+        event->ignore();
+        this->hide();
+        QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
+
+        trayIcon->showMessage("Tray Program",
+                              ("The application is minimized to tray."),
+                              icon,
+                              2000);
+    }
+}
+
+void TaskManagerUI::iconActivated(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason){
+    case QSystemTrayIcon::Trigger:
+        if(!this->isVisible()){
+            this->show();
+        } else {
+            this->hide();
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 TaskManagerUI::~TaskManagerUI()
