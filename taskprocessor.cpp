@@ -14,6 +14,7 @@ void TaskProcessor::createTask(TaskStructure* task)
 void TaskProcessor::updateTask(TaskStructure* task)
 {
     QString done = task->done ? "true" : "false";
+    qDebug() << done;
     connector->update(task->id, done);
 }
 
@@ -28,10 +29,14 @@ QList<TaskStructure*> TaskProcessor::getAll()
         task->id = q->value(0).toString();
         task->name = q->value(1).toString();
         task->description = q->value(2).toString();
-        task->priority = q->value(3).toString();
+        task->priority = priorities.find(q->value(3).toInt())->second;
         task->deadLine = q->value(4).toString();
         task->done = q->value(5).toBool();
-        tasks.push_back(task);
+        qDebug() << task->done;
+        if(q->value(5).toBool())
+            tasks.push_back(task);
+        else
+            tasks.push_front(task);
     }
     return tasks;
 }

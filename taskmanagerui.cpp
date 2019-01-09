@@ -29,10 +29,13 @@ void TaskManagerUI::finishTask(int row, int col)
 {
     if(ui->twMainTasksTable->item(row,col)->checkState() == Qt::Checked)
     {
+        ui->twMainTasksTable->blockSignals(true);
         task->id = ui->twMainTasksTable->item(row,0)->text();
         task->done = true;
         processor->updateTask(task);
+        fillTable();
     }
+    ui->twMainTasksTable->blockSignals(false);
 }
 
 void TaskManagerUI::clearTable()

@@ -15,7 +15,7 @@ bool TaskDBConnector::connect()
 
         q->exec("CREATE DATABASE TaskDB");
         q->exec("USE TaskDB");
-        q->exec("CREATE TABLE Tasks(ID INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(50), Description VARCHAR(100), Prior VARCHAR(10), EndTime VARCHAR(20), Done VARCHAR(1))");
+        q->exec("CREATE TABLE Tasks(ID INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(50), Description VARCHAR(100), Prior INTEGER NOT NULL, EndTime VARCHAR(20), Done VARCHAR(1))");
 
         return true;
     }
@@ -30,17 +30,18 @@ std::shared_ptr<QSqlQuery> TaskDBConnector::readAll()
 {
     q->exec("SELECT DISTINCT Id, Name, Description, Prior, EndTime, Done "
             "FROM Tasks "
-            "ORDER BY Prior DESC;");
+            "ORDER BY Prior;");
     return q;
 }
 
 void TaskDBConnector::insert(const QString &szName, const QString &szDescription, const QString &szPrior, const QString &szDeadLineTime, const bool &szDone)
 {
+    qDebug() << priorities.find(szPrior)->second;
     QString done = szDone ? "true" : "false";
     QString queryString = "INSERT INTO Tasks (Name,Description,Prior,EndTime,Done) values('"
             + szName + "', '"
             + szDescription + "', '"
-            + szPrior + "', '"
+            + QString::number(priorities.find(szPrior)->second) + "', '"
             + szDeadLineTime + "', '"
             + done + "')";
     q->exec(queryString);

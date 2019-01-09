@@ -21,6 +21,13 @@ public:
 private:
     std::unique_ptr<TaskDBConnector> connector;
 
+    std::map<int, QString> priorities = {
+        {0,"Low"},
+        {1,"Medium"},
+        {2,"High"},
+        {3,"Fatal"}
+};
+
 };
 
 #endif // TASKPROCESSOR_H

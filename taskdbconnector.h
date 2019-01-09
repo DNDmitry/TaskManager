@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <iostream>
 #include <memory>
+#include <map>
 #include "taskdbconnector_global.h"
 
 class TaskDBConnector
@@ -23,6 +24,17 @@ public:
     void deleteRow(const QString &szRecordId);
     void disconnect();
     virtual ~TaskDBConnector();
+
+private:
+    std::map<QString, int> priorities = {
+        {"Low",0},
+        {"Medium",1},
+        {"High",2},
+        {"Fatal",3}
+};
+
+
+
 };
 
 #endif // TASKDBCONNECTOR_H
