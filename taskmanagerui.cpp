@@ -46,28 +46,32 @@ TaskManagerUI::TaskManagerUI(QWidget *parent) :
 }
 
 void TaskManagerUI::checkDeadLines()
-{
-    QString message = "Believe in yourself! Have faith in your abilities! Just do these tasks: ";
-    QList<TaskStructure> urgentTasks;
-    QVector<int> rowNumbers;
-    getUrgentTasks(urgentTasks, rowNumbers);
-    if(!urgentTasks.isEmpty())
+{    
+    if(ui->twMainTasksTable->item(0,0) != nullptr)
     {
-        for(int i : rowNumbers)
+        QString message = "Believe in yourself! Have faith in your abilities! Just do these tasks: ";
+        QList<TaskStructure> urgentTasks;
+        QVector<int> rowNumbers;
+        getUrgentTasks(urgentTasks, rowNumbers);
+        if(!urgentTasks.isEmpty())
         {
-            for(int j = 0; j < ui->twMainTasksTable->columnCount(); j++)
+            for(int i : rowNumbers)
             {
-                ui->twMainTasksTable->item(i,j)->setBackgroundColor(Qt::red);
-                if(j == 0)
+                for(int j = 0; j < ui->twMainTasksTable->columnCount(); j++)
                 {
-                    message += ui->twMainTasksTable->item(i,j)->text() + " ";
+                    ui->twMainTasksTable->item(i,j)->setBackgroundColor(Qt::red);
+                    if(j == 0)
+                    {
+                        message += ui->twMainTasksTable->item(i,j)->text() + " ";
+                    }
                 }
-            }
 
+            }
+            popUp->setPopupText(message);
+            popUp->show();
         }
-        popUp->setPopupText(message);
-        popUp->show();
     }
+
 }
 
 void TaskManagerUI::getUrgentTasks(QList<TaskStructure> &urgentTasks, QVector<int> &rowNumbers)
